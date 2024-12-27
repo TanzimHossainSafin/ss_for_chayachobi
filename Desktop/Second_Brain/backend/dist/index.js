@@ -91,15 +91,16 @@ app.get('/api/v1/content', Usermiddleware_1.UserMiddleware, (req, res) => __awai
 }));
 app.delete('/api/v1/content', Usermiddleware_1.UserMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const contentId = req.body.contentId;
-    console.log('before');
-    yield db_1.contentModel.deleteMany({
+    const is_delete = yield db_1.contentModel.deleteMany({
         contentId,
         // @ts-ignore
         userId: req.userId
     });
-    res.json({
-        message: "Your content is Delete successfully"
-    });
+    if (is_delete) {
+        res.json({
+            message: "Your content is Delete successfully"
+        });
+    }
 }));
 app.post('/api/v1/share', (req, res) => {
 });
@@ -107,8 +108,7 @@ app.post('/api/v1/brain:/shareLink', (req, res) => {
 });
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield mongoose_1.default.connect(`mongodb+srv://tanzimhossainsafin756:f3Q4NRyF8JET4S43@test.qlr5r.mongodb.net/Brainly`);
-        console.log(`Detabase is Connected!`);
+        yield mongoose_1.default.connect(``);
         app.listen(3000);
         console.log(`Server is Running`);
     });

@@ -77,14 +77,17 @@ app.get('/api/v1/content',UserMiddleware,async(req,res)=>{
 });
 app.delete('/api/v1/content',UserMiddleware,async(req,res)=>{
    const contentId=req.body.contentId;
-   await contentModel.deleteMany({
+   const is_delete=await contentModel.deleteMany({
     contentId,
     // @ts-ignore
     userId:req.userId
    })
-   res.json({
-    message:"Your content is Delete successfully"
-   });
+   if(is_delete){
+    res.json({
+      message:"Your content is Delete successfully"
+     });
+   }
+   
 });
 app.post('/api/v1/share',(req,res)=>{
 
